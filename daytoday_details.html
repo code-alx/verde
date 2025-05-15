@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAPD - Demandas Dia a Dia (Ativas)</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="dashboard-header-custom sticky-top">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <h1 class="h4 mb-0">Detalhes - Demandas do Dia a Dia (Ativas)</h1>
+            <nav>
+                <a href="dashboard.html" class="btn btn-sm btn-outline-light me-2">Voltar ao Dashboard</a>
+                <a href="#" id="logoutLink" class="btn btn-sm btn-outline-light">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mt-4">
+        <div class="details-container-bootstrap p-4 mb-4 shadow-sm">
+             <div class="d-flex justify-content-end mb-3">
+                <button id="addDaytodayBtn" class="btn btn-mogi-secondary" data-bs-toggle="modal" data-bs-target="#daytodayModal">
+                    <i class="bi bi-plus-circle"></i> Adicionar Demanda
+                </button>
+            </div>
+
+            <div class="mb-4">
+                <h3 class="h5 section-title-mogi">Minhas Demandas (Ativas)</h3>
+                <ul id="myDaytodayList" class="list-group daytoday-demand-list" data-list-type="my">
+                    <li class="list-group-item text-center text-muted">Carregando suas demandas...</li>
+                </ul>
+            </div>
+
+            <div class="mb-4">
+                <h3 class="h5 section-title-mogi">Todas as Demandas (Ativas)</h3>
+                <ul id="allDaytodayList" class="list-group daytoday-demand-list" data-list-type="all">
+                     <li class="list-group-item text-center text-muted">Carregando todas as demandas...</li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modal para Adicionar/Editar Demanda do Dia a Dia -->
+    <div class="modal fade" id="daytodayModal" tabindex="-1" aria-labelledby="daytodayModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-mogi">
+                <div class="modal-header modal-header-mogi">
+                    <h5 class="modal-title" id="daytodayModalLabel">Adicionar/Editar Demanda</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="daytodayForm">
+                    <div class="modal-body">
+                        <input type="hidden" id="daytodayId">
+                        <div class="mb-3">
+                            <label for="daytodayDescription" class="form-label">Descrição da Demanda:</label>
+                            <textarea class="form-control" id="daytodayDescription" rows="3" required></textarea>
+                        </div>
+                         <div class="row">
+                             <div class="col-md-6 mb-3">
+                                <label for="daytodayAssignedToRole" class="form-label">Atribuído a (Núcleo/Cargo):</label>
+                                 <select class="form-select" id="daytodayAssignedToRole" required>
+                                     <!-- Options (roles) will be populated by script.js -->
+                                 </select>
+                             </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="daytodayStatus" class="form-label">Situação:</label>
+                                <select class="form-select" id="daytodayStatus" required>
+                                    <option value="Pendente" selected>Pendente</option>
+                                    <option value="Em andamento">Em andamento</option>
+                                    <option value="Concluído">Concluído</option>
+                                    <option value="Cancelado">Cancelado</option>
+                                </select>
+                            </div>
+                         </div>
+                    </div>
+                    <div class="modal-footer modal-footer-mogi">
+                        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-mogi-primary">Salvar Demanda</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+     <!-- Modal para Adicionar/Editar Etapa de Demanda Dia a Dia -->
+    <div class="modal fade" id="daytodayStepModal" tabindex="-1" aria-labelledby="daytodayStepModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-mogi">
+                <div class="modal-header modal-header-mogi">
+                    <h5 class="modal-title" id="daytodayStepModalLabel">Adicionar/Editar Etapa</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="daytodayStepForm">
+                    <div class="modal-body">
+                        <input type="hidden" id="daytodayStepDemandId">
+                        <input type="hidden" id="daytodayStepId">
+                         <div class="mb-3">
+                            <label for="daytodayStepDescription" class="form-label">Descrição da Etapa:</label>
+                            <textarea class="form-control" id="daytodayStepDescription" rows="3" required></textarea>
+                        </div>
+                         <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="daytodayStepDate" class="form-label">Data:</label>
+                                <input type="date" class="form-control" id="daytodayStepDate" required>
+                            </div>
+                             <div class="col-md-6 mb-3">
+                                <label for="daytodayStepFiles" class="form-label">Anexar Arquivos:</label>
+                                <input class="form-control" type="file" id="daytodayStepFiles" multiple>
+                                 <div id="daytodayStepCurrentFiles" class="form-text text-muted"></div>
+                            </div>
+                        </div>
+                         <!-- Atribuído a (Núcleo/Cargo) no modal de etapa -->
+                         <div class="mb-3">
+                             <label for="daytodayStepAssignedToRole" class="form-label">Atribuir Demanda a:</label>
+                             <select class="form-select" id="daytodayStepAssignedToRole" required>
+                                 <!-- Options (roles) will be populated by script.js -->
+                             </select>
+                         </div>
+                    </div>
+                    <div class="modal-footer modal-footer-mogi">
+                        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-mogi-primary">Salvar Etapa</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

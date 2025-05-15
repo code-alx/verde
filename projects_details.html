@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes - Projetos Prioritários</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="dashboard-header-custom sticky-top">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <h1 class="h4 mb-0">Detalhes - Projetos Prioritários</h1>
+            <nav>
+                <a href="dashboard.html" class="btn btn-sm btn-outline-light me-2">Voltar ao Dashboard</a>
+                <a href="#" id="logoutLink" class="btn btn-sm btn-outline-light">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mt-4">
+        <div class="details-container-bootstrap p-4 mb-4 shadow-sm">
+            <div class="d-flex justify-content-end mb-3">
+                <button id="addProjectBtn" class="btn btn-mogi-secondary" data-bs-toggle="modal" data-bs-target="#projectModal">
+                    <i class="bi bi-plus-circle"></i> Adicionar Projeto
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table id="projectsTable" class="table table-hover table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" style="width: 10%;" class="text-center">Ordem</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Prioridade</th>
+                            <th scope="col">Situação</th>
+                            <th scope="col">Atribuído a</th>
+                            <th scope="col">Data Última Alteração</th>
+                            <th scope="col">Local onde está</th>
+                            <th scope="col" class="text-center" style="width: 15%;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projectsTableBody">
+                        <tr><td colspan="8" class="text-center">Carregando projetos...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal para Projetos Prioritários -->
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-mogi">
+                <div class="modal-header modal-header-mogi">
+                    <h5 class="modal-title" id="projectModalLabel">Adicionar/Editar Projeto</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="projectForm">
+                    <div class="modal-body">
+                        <input type="hidden" id="projectId">
+                        <div class="mb-3">
+                            <label for="projectDescription" class="form-label">Descrição do Projeto:</label>
+                            <input type="text" class="form-control" id="projectDescription" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="projectPriority" class="form-label">Prioridade:</label>
+                                <select class="form-select" id="projectPriority" required>
+                                    <option value="Baixa">Baixa</option>
+                                    <option value="Média" selected>Média</option>
+                                    <option value="Alta">Alta</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="projectStatus" class="form-label">Situação:</label>
+                                <select class="form-select" id="projectStatus" required>
+                                    <option value="Pendente" selected>Pendente</option>
+                                    <option value="Em andamento">Em andamento</option>
+                                    <option value="Concluído">Concluído</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="projectAssignedTo" class="form-label">Atribuído a:</label>
+                                <select class="form-select" id="projectAssignedTo" required>
+                                    <!-- Options will be populated by script.js -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row"> <!-- Organizado em linha -->
+                             <div class="col-md-6 mb-3">
+                                <label for="projectLocation" class="form-label">Local onde está:</label>
+                                <input type="text" class="form-control" id="projectLocation" disabled>
+                             </div>
+                             <div class="col-md-6 mb-3">
+                                 <label for="projectLastModified" class="form-label">Data Última Alteração:</label>
+                                <input type="text" class="form-control" id="projectLastModified" disabled>
+                             </div>
+                         </div>
+                    </div>
+                    <div class="modal-footer modal-footer-mogi">
+                        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-mogi-primary">Salvar Projeto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Etapas do Projeto -->
+    <div class="modal fade" id="stepModal" tabindex="-1" aria-labelledby="stepModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-mogi">
+                <div class="modal-header modal-header-mogi">
+                    <h5 class="modal-title" id="stepModalLabel">Adicionar/Editar Etapa</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="stepForm">
+                    <div class="modal-body">
+                        <input type="hidden" id="stepProjectId">
+                        <input type="hidden" id="stepId">
+                        <div class="mb-3">
+                            <label for="stepResponsable" class="form-label">Responsável:</label>
+                            <input type="text" class="form-control" id="stepResponsable" required>
+                        </div>
+                         <div class="mb-3">
+                            <label for="stepDescription" class="form-label">Descrição da Etapa:</label>
+                            <textarea class="form-control" id="stepDescription" rows="3" required></textarea>
+                        </div>
+                         <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="stepLocation" class="form-label">Local:</label>
+                                <input type="text" class="form-control" id="stepLocation">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="stepDate" class="form-label">Data:</label>
+                                <input type="date" class="form-control" id="stepDate" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="stepObservation" class="form-label">Observação:</label>
+                            <textarea class="form-control" id="stepObservation" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer modal-footer-mogi">
+                        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-mogi-primary">Salvar Etapa</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,640 @@
+
+/* :root e estilos globais/login */
+:root {
+    --mogi-green-light: #91C73E;
+    --mogi-green-dark: #6AA33C;
+    --mogi-green-dark-rgb: 106, 163, 60;
+    --mogi-orange-brown: #D88A3D;
+    --mogi-orange-vibrant: #F39C12;
+    --mogi-orange-vibrant-rgb: 243, 156, 18;
+    --mogi-white: #FFFFFF;
+    --mogi-text-dark: #212529;
+    --mogi-text-light: #f8f9fa;
+    --mogi-background-page: #eef2f5;
+    --mogi-card-background: var(--mogi-white);
+    --mogi-border-color: #dee2e6;
+    --mogi-primary-color: var(--mogi-green-dark);
+    --mogi-secondary-color: var(--mogi-orange-vibrant);
+    --mogi-header-bg: #2c3e50;
+
+    /* Cores para badges */
+    --priority-alta-bg: #dc3545;                /* Vermelho */
+    --priority-alta-text: var(--mogi-white);
+    --priority-media-bg: var(--mogi-orange-vibrant); /* Laranja Mogi Vibrante */
+    --priority-media-text: var(--mogi-text-dark);  /* Texto escuro */
+    --priority-baixa-bg: var(--mogi-green-dark);   /* Verde Mogi Forte */
+    --priority-baixa-text: var(--mogi-white);    /* Texto branco */
+
+    /* Cores para badges de Status (Expandido para Dia a Dia) */
+    --status-pendente-bg: #6c757d;
+    --status-pendente-text: var(--mogi-white);
+    --status-em-andamento-bg: #0d6efd; /* Azul Bootstrap */
+    --status-em-andamento-text: var(--mogi-white);
+    --status-concluido-bg: var(--mogi-green-dark);
+    --status-concluido-text: var(--mogi-white);
+    --status-cancelado-bg: #adb5bd; /* Cinza claro */
+    --status-cancelado-text: var(--mogi-text-dark);
+
+
+    /* Cores de fundo SUAVES para linhas por prioridade */
+    --row-prio-alta-bg: rgba(220, 53, 69, 0.1);
+    --row-prio-media-bg: rgba(255, 193, 7, 0.18);
+    --row-prio-baixa-bg: rgba(145, 199, 62, 0.15);
+
+    /* Animação */
+    --row-animation-highlight-bg: rgba(var(--mogi-green-dark-rgb), 0.35);
+    --row-hover-highlight-bg: rgba(108, 117, 125, 0.1);
+    --row-highlight-scale: 1.01;
+
+    /* Cor de fundo para linha expandida */
+    --expanded-row-bg: #f1f1f1; /* Um cinza claro */
+
+    /* Cor para destaque de item */
+    --highlight-color: rgba(var(--mogi-orange-vibrant-rgb), 0.3); /* Laranja suave */
+     --highlight-border-color: var(--mogi-orange-vibrant);
+}
+
+body {
+    background-color: var(--mogi-background-page);
+    color: var(--mogi-text-dark);
+    font-family: var(--bs-body-font-family);
+}
+
+/* Página de Login */
+.login-page-body { background: linear-gradient(135deg, var(--mogi-green-dark) 0%, var(--mogi-orange-vibrant) 100%); }
+.login-container-bootstrap { background-color: rgba(255, 255, 255, 0.95); border-radius: 0.75rem; backdrop-filter: blur(5px); }
+.login-container-bootstrap h2 { color: var(--mogi-primary-color); font-weight: 600; }
+.login-container-bootstrap .form-control:focus { border-color: var(--mogi-primary-color); box-shadow: 0 0 0 0.25rem rgba(106, 163, 60, 0.25); }
+.login-container-bootstrap .btn-primary { background-color: var(--mogi-primary-color); border-color: var(--mogi-primary-color); padding: 0.6rem 0; font-size: 1.05rem; }
+.login-container-bootstrap .btn-primary:hover { background-color: var(--mogi-green-light); border-color: var(--mogi-green-light); color: var(--mogi-white); }
+
+/* Header Customizado */
+.dashboard-header-custom { background-color: var(--mogi-header-bg); color: var(--mogi-white); padding: 0.8rem 1.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+.dashboard-header-custom h1 { font-weight: 500; color: var(--mogi-white); }
+.dashboard-header-custom .btn-outline-light:hover { background-color: var(--mogi-primary-color); color: var(--mogi-white); }
+/* Estilo para o nome do usuário logado no cabeçalho */
+#loggedInUserDisplay {
+    font-size: 0.9rem;
+    margin-right: 1rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7); /* Slightly transparent white */
+}
+
+
+/* Estilo dos Cards com Bootstrap */
+.info-card-bootstrap { background-color: var(--mogi-card-background); border: none; box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.07); transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; }
+.info-card-bootstrap:hover { transform: translateY(-4px); box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); }
+.card-header-mogi { background-color: transparent; border-bottom: 1px solid var(--mogi-border-color); padding: 0.8rem 1.25rem; }
+.card-header-mogi h2 { color: var(--mogi-orange-brown); font-weight: 500; }
+.info-card-bootstrap .card-body { padding: 1.25rem; }
+.info-card-bootstrap .card-text { font-size: 0.95rem; color: #555; }
+.info-card-bootstrap .card-text strong { color: var(--mogi-text-dark); cursor: help; }
+.card-footer-mogi { background-color: #f9fafb; border-top: 1px solid var(--mogi-border-color); padding: 0.8rem 1.25rem; }
+.btn-details-mogi { background-color: var(--mogi-primary-color); color: var(--mogi-white); font-size: 0.85rem; }
+.btn-details-mogi:hover { background-color: var(--mogi-green-light); border-color: var(--mogi-green-light); color: var(--mogi-white); }
+.btn-details-mogi.disabled { background-color: #6c757d; border-color: #6c757d; }
+
+/* Tabela de Resumo de Projetos no Card do Dashboard */
+.project-summary-table { margin-bottom: 0; }
+.project-summary-table th, .project-summary-table td { vertical-align: middle; font-size: 0.9rem; padding: 0.5rem; cursor: help; }
+.project-summary-table td { font-weight: 500; }
+.project-summary-table .row-total,
+.project-summary-table .col-total,
+.project-summary-table tfoot td,
+.project-summary-table tfoot th {
+    font-weight: 600;
+    background-color: #f8f9fa;
+}
+.project-summary-table tfoot td#proj-grand-total {
+    background-color: #e9ecef;
+}
+
+/* Páginas de Detalhes */
+.details-container-bootstrap { background-color: var(--mogi-card-background); border-radius: 0.5rem; }
+.section-title-mogi { color: var(--mogi-orange-brown); font-weight: 500; padding-bottom: 0.5rem; border-bottom: 2px solid var(--mogi-primary-color); margin-bottom: 1rem !important; }
+.details-container-bootstrap .list-group-item { background-color: #fdfdfd; border: 1px solid #f0f0f0; margin-bottom: 0.5rem; border-radius: 0.25rem; font-size: 0.95rem; }
+.details-container-bootstrap .list-group-item:last-child { border-bottom-right-radius: 0.25rem; border-bottom-left-radius: 0.25rem; margin-bottom: 0; }
+.rh-actions button, .project-actions button, .step-actions button { padding: 0.25rem 0.5rem; font-size: 0.8rem; }
+
+/* Estilos para Botões Mogi Específicos */
+.btn-mogi-primary { background-color: var(--mogi-primary-color); color: var(--mogi-white); border-color: var(--mogi-primary-color); }
+.btn-mogi-primary:hover { background-color: var(--mogi-green-light); border-color: var(--mogi-green-light); color: var(--mogi-white); }
+.btn-mogi-secondary { background-color: var(--mogi-secondary-color); color: var(--mogi-white); border-color: var(--mogi-secondary-color); }
+.btn-mogi-secondary:hover { background-color: var(--mogi-orange-brown); border-color: var(--mogi-orange-brown); color: var(--mogi-white); }
+
+/* Modal Customizado com Cores Mogi */
+.modal-content-mogi { background-color: var(--mogi-card-background); border: 1px solid var(--mogi-header-bg); }
+.modal-header-mogi { background-color: var(--mogi-header-bg); color: var(--mogi-white); border-bottom: 1px solid rgba(255,255,255,0.2); }
+.modal-header-mogi .modal-title { font-weight: 500; }
+.modal-footer-mogi { background-color: #f1f3f5; border-top: 1px solid var(--mogi-border-color); }
+.btn-close-white { filter: invert(1) grayscale(100%) brightness(200%); }
+
+/* Ajustes na Tabela de Detalhes de Projetos */
+.table { border-color: var(--mogi-border-color); }
+.table thead.table-light th { background-color: #e9ecef; color: var(--mogi-text-dark); font-weight: 600; border-bottom-width: 2px; }
+.table td, .table th { vertical-align: middle; }
+.table .project-actions .btn, .table .rh-actions .btn { margin: 0 0.2rem; }
+
+/* Coloração de Linha por Prioridade */
+#projectsTableBody tr[data-priority="Alta"] > td { background-color: var(--row-prio-alta-bg); }
+#projectsTableBody tr[data-priority="Média"] > td { background-color: var(--row-prio-media-bg); }
+#projectsTableBody tr[data-priority="Baixa"] > td { background-color: var(--row-prio-baixa-bg); }
+#projectsTableBody tr > td { transition: background-color 0.3s ease-in-out; }
+
+/* Badges de Projetos e Dia a Dia */
+.badge.bg-priority-alta { background-color: var(--priority-alta-bg) !important; color: var(--priority-alta-text) !important; }
+.badge.bg-priority-media { background-color: var(--priority-media-bg) !important; color: var(--priority-media-text) !important; }
+.badge.bg-priority-baixa { background-color: var(--priority-baixa-bg) !important; color: var(--priority-baixa-text) !important; }
+/* Badges de Status */
+.badge.bg-status-pendente { background-color: var(--status-pendente-bg) !important; color: var(--status-pendente-text) !important; }
+.badge.bg-status-em-andamento { background-color: #0d6efd !important; color: var(--status-em-andamento-text) !important; }
+.badge.bg-status-concluido { background-color: var(--mogi-green-dark) !important; color: var(--status-concluido-text) !important; }
+.badge.bg-status-cancelado { background-color: var(--status-cancelado-bg) !important; color: var(--status-cancelado-text) !important; }
+
+
+/* Estilos para a coluna de Ordem e botões de seta */
+.order-display { font-weight: 500; margin-right: 0.5rem; }
+.order-controls .btn { padding: 0.1rem 0.4rem; font-size: 0.9rem; line-height: 1; }
+.order-controls .btn i { vertical-align: text-bottom; }
+.order-cell-content { display: flex; align-items: center; justify-content: center; }
+
+/* Animação e Highlight para Reordenação */
+@keyframes rowPulseHighlightAnimation {
+  0% { background-color: transparent; transform: scale(1); }
+  50% { background-color: var(--row-animation-highlight-bg); transform: scale(var(--row-highlight-scale)); }
+}
+.row-animating-highlight > td {
+  animation: rowPulseHighlightAnimation 1.0s ease-in-out;
+}
+#projectsTableBody tr.row-hover-highlight > td {
+    background-color: var(--row-hover-highlight-bg) !important;
+    transition: background-color 0.1s linear;
+}
+#projectsTableBody tr {
+    transition: background-color 0.25s linear;
+}
+
+
+/* --- Estilos para Detalhes de Etapas --- */
+
+/* Linha de detalhe oculta (Projetos) */
+.step-details-row {
+    display: none;
+}
+/* Detalhes de etapa (Dia a Dia) */
+.daytoday-step-details {
+     display: none;
+     margin-top: 1rem;
+     padding-top: 1rem;
+     border-top: 1px solid var(--mogi-border-color);
+     background-color: var(--expanded-row-bg);
+     padding: 1rem;
+     border-radius: 0.25rem;
+}
+
+
+/* Célula que contem os detalhes de projeto */
+.step-details-cell {
+    padding: 1.5rem !important;
+    background-color: var(--expanded-row-bg);
+    border-top: 1px solid var(--mogi-border-color);
+}
+
+/* Container dos detalhes (Projeto) */
+.step-details-content {
+    display: flex;
+    flex-direction: column;
+}
+/* Container dos detalhes (Dia a Dia) */
+.daytoday-steps-content {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.add-step-button-container { /* Projeto */
+    text-align: right;
+    margin-bottom: 1rem;
+}
+.daytoday-add-step-button-container { /* Dia a Dia */
+     text-align: right;
+    margin-bottom: 1rem;
+}
+
+
+.add-step-button, .daytoday-add-step-button { /* Estilo compartilhado */
+     background-color: var(--mogi-green-dark);
+    color: var(--mogi-white);
+    border-color: var(--mogi-green-dark);
+}
+.add-step-button:hover, .daytoday-add-step-button:hover { /* Estilo compartilhado */
+    background-color: var(--mogi-green-light);
+    border-color: var(--mogi-green-light);
+    color: var(--mogi-white);
+}
+.add-step-button i, .daytoday-add-step-button i { /* Estilo compartilhado */
+     margin-right: 0.5rem;
+}
+
+
+/* Lista de etapas */
+.step-list, .daytoday-step-list { /* Estilo compartilhado */
+     list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+/* Item individual da etapa */
+.step-item, .daytoday-step-item { /* Estilo compartilhado */
+    background-color: var(--mogi-card-background);
+    border: 1px solid var(--mogi-border-color);
+    border-radius: 0.25rem;
+    margin-bottom: 0.75rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.step-item-content, .daytoday-step-item-content { /* Estilo compartilhado */
+    flex-grow: 1;
+    margin-right: 1rem;
+    margin-bottom: .5rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+@media (min-width: 768px) {
+    .step-item-content, .daytoday-step-item-content { /* Estilo compartilhado */
+        margin-bottom: 0;
+    }
+}
+
+
+.step-item-content strong, .daytoday-step-item-content strong { /* Estilo compartilhado */
+    display: block;
+    font-size: 1rem;
+    color: var(--mogi-primary-color);
+    margin-bottom: 0.25rem;
+}
+
+
+.step-item-content span, .daytoday-step-item-content span { /* Estilo compartilhado */
+    display: block;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+
+.step-item-content .step-description, .daytoday-step-item-content .daytoday-step-description { /* Estilo compartilhado */
+     font-style: italic;
+     margin-top: 0.5rem;
+     color: var(--mogi-text-dark);
+}
+
+
+.step-actions, .daytoday-step-actions { /* Estilo compartilhado */
+    flex-shrink: 0;
+    display: flex;
+    margin-top: 0.5rem;
+}
+
+
+@media (min-width: 768px) {
+     .step-actions, .daytoday-step-actions { /* Estilo compartilhado */
+         margin-top: 0;
+     }
+}
+
+
+.step-actions .btn, .daytoday-step-actions .btn { /* Estilo compartilhado */
+    padding: 0.2rem 0.4rem;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+}
+.step-actions .btn:first-child, .daytoday-step-actions .btn:first-child { /* Estilo compartilhado */
+    margin-left: 0;
+}
+
+
+/* Estilo para a linha principal quando expandida (Projetos) */
+.project-row-expanded {
+    border-bottom: none !important;
+}
+.project-row-expanded td {
+     background-color: var(--expanded-row-bg) !important;
+}
+
+/* --- Estilo para a lista de projetos atribuídos no dashboard --- */
+.assigned-project-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.assigned-project-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #eee;
+    font-size: 0.9rem;
+    color: var(--mogi-text-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.assigned-project-list li:last-child {
+    border-bottom: none;
+}
+
+.assigned-project-list li .project-info {
+    flex-grow: 1;
+    margin-right: 0.5rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.assigned-project-list li .project-info strong {
+     display: block;
+     color: var(--mogi-orange-brown);
+     font-size: 1rem;
+     margin-bottom: 0.25rem;
+}
+
+.assigned-project-list li .project-details {
+     font-size: 0.85rem;
+     color: #555;
+}
+.assigned-project-list li .project-details span {
+    margin-right: 1rem;
+}
+
+
+.assigned-project-list li .badge {
+    font-size: 0.75rem;
+    vertical-align: middle;
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+}
+
+/* --- Estilos para Botões de Ciência --- */
+
+.btn-ciencia {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+    min-width: 80px;
+    text-align: center;
+}
+
+.btn-ciencia.btn-ciencia-pending {
+    background-color: #dc3545; /* Bootstrap danger */
+    color: var(--mogi-white);
+    border-color: #dc3545;
+}
+.btn-ciencia.btn-ciencia-pending:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    color: var(--mogi-white);
+}
+
+.btn-ciencia.btn-ciencia-acknowledged {
+    background-color: var(--mogi-green-dark); /* Verde Mogi */
+    color: var(--mogi-white);
+    border-color: var(--mogi-green-dark);
+}
+.btn-ciencia.btn-ciencia-acknowledged:hover {
+    background-color: var(--mogi-green-light);
+    border-color: var(--mogi-green-light);
+    color: var(--mogi-white);
+}
+
+/* Estilo para a contagem de pendências no dashboard */
+#pendingAcknowledgments {
+    font-weight: 600;
+    color: var(--mogi-orange-vibrant);
+}
+#pendingAcknowledgments i {
+    vertical-align: text-bottom;
+}
+/* Estilo para o indicador de ciência no card Dia a Dia */
+#daytodayCardPendingScience {
+     font-weight: 600;
+     color: var(--mogi-orange-vibrant);
+}
+#daytodayCardPendingScience i {
+     vertical-align: text-bottom;
+}
+/* Estilo para o indicador de ciência no card RH */
+#rhCardPendingScience {
+     font-weight: 600;
+     color: var(--mogi-orange-vibrant);
+}
+#rhCardPendingScience i {
+     vertical-align: text-bottom;
+}
+/* Estilo para o indicador de ciência no card Projetos */
+#projectCardPendingScience {
+     font-weight: 600;
+     color: var(--mogi-orange-vibrant);
+}
+#projectCardPendingScience i {
+     vertical-align: text-bottom;
+}
+
+
+/* --- Estilos para Painel de Pendências do Dashboard --- */
+.dashboard-pending-panel {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    width: 350px;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    background-color: var(--mogi-card-background);
+    border: 1px solid var(--mogi-border-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    z-index: 1050;
+    display: none;
+}
+
+.dashboard-pending-panel .card {
+    border: none;
+    box-shadow: none;
+}
+
+.dashboard-pending-panel .card-body {
+    padding: 0 !important;
+}
+
+.dashboard-pending-panel .list-group-item {
+    background-color: #fdfdfd;
+    border-color: #f0f0f0;
+    font-size: 0.9rem;
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    transition: background-color 0.2s ease;
+}
+
+.dashboard-pending-panel .list-group-item:hover {
+    background-color: #e9ecef;
+}
+
+.dashboard-pending-panel .list-group-item-content {
+    flex-grow: 1;
+    margin-right: 1rem;
+     word-break: break-word;
+    overflow-wrap: break-word;
+}
+.dashboard-pending-panel .list-group-item-content strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--mogi-primary-color);
+    margin-bottom: 0.25rem;
+}
+.dashboard-pending-panel .list-group-item-content span {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.dashboard-pending-panel .list-group-item-actions {
+    flex-shrink: 0;
+    display: flex;
+    margin-top: 0.5rem;
+}
+@media (min-width: 768px) {
+    .dashboard-pending-panel .list-group-item-actions {
+        margin-top: 0;
+    }
+}
+
+.dashboard-pending-panel .btn-ciencia {
+     padding: 0.25rem 0.5rem;
+}
+
+/* --- Estilos para Destaque de Item --- */
+@keyframes highlightFade {
+    0% { background-color: var(--highlight-color); border-color: var(--highlight-border-color); }
+    100% { background-color: transparent; border-color: var(--mogi-border-color); }
+}
+
+.item-highlight {
+    animation: highlightFade 2s ease-out;
+     background-color: var(--highlight-color) !important;
+     border-color: var(--highlight-border-color) !important;
+     transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+/* --- Estilos para Demandas Dia a Dia --- */
+.daytoday-demand-list .list-group-item {
+     background-color: #fdfdfd;
+    border: 1px solid #f0f0f0;
+    margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+.daytoday-demand-list .list-group-item:last-child {
+     margin-bottom: 0;
+}
+.daytoday-demand-list .list-group-item:hover {
+     background-color: #e9ecef;
+}
+.daytoday-demand-list .list-group-item-header {
+     flex-grow: 1;
+     margin-right: 1rem;
+     word-break: break-word;
+    overflow-wrap: break-word;
+}
+.daytoday-demand-list .list-group-item-header strong {
+     display: block;
+     font-size: 1rem;
+     color: var(--mogi-orange-brown);
+     margin-bottom: 0.25rem;
+}
+.daytoday-demand-list .list-group-item-header span {
+    font-size: 0.85rem;
+    color: #555;
+    margin-right: 1rem;
+}
+.daytoday-demand-list .list-group-item-actions {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+@media (min-width: 768px) {
+     .daytoday-demand-list .list-group-item-actions {
+         margin-top: 0;
+     }
+}
+
+/* Estilo para a lista de arquivos em etapas */
+.daytoday-step-files-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+}
+.daytoday-step-files-list li {
+    color: #555;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin-bottom: 0.2rem;
+}
+.daytoday-step-files-list li i {
+    margin-right: 0.3rem;
+}
+/* Estilo para o texto de arquivos atuais no modal */
+#daytodayStepCurrentFiles {
+     font-size: 0.85rem;
+     color: #6c757d;
+     margin-top: 0.25rem;
+}
+
+/* Estilo para a lista de demandas Dia a Dia no card do dashboard */
+.dashboard-daytoday-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.dashboard-daytoday-list li {
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed #eee;
+    font-size: 0.85rem;
+    color: var(--mogi-text-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.dashboard-daytoday-list li:last-child {
+    border-bottom: none;
+}
+.dashboard-daytoday-list li .demand-info {
+    flex-grow: 1;
+    margin-right: 0.5rem;
+     word-break: break-word;
+    overflow-wrap: break-word;
+}
+.dashboard-daytoday-list li .demand-info strong {
+    display: inline;
+    color: var(--mogi-orange-brown);
+    font-size: 0.9rem;
+    margin-right: 0.25rem;
+}
+.dashboard-daytoday-list li .demand-info span {
+    font-size: 0.8rem;
+    color: #666;
+}

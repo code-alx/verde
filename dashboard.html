@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAPD - Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="dashboard-header-custom sticky-top">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <h1 class="h4 mb-0">Painel de Acompanhamento de Projetos e Demandas da Secretaria de Agricultura e Segurança Alimentar - PAPD</h1>
+            <nav class="d-flex align-items-center">
+                <!-- Nome do usuário logado -->
+                 <span id="loggedInUserDisplay" class="me-3 text-white-50"></span>
+                <!-- Elemento para a contagem de pendências de ciência (GLOBAL) -->
+                <div id="pendingAcknowledgments" class="me-3 text-warning dashboard-pending-icon" style="font-size: 1rem; cursor: pointer;">
+                    <i class="bi bi-exclamation-triangle-fill me-1"></i> <span id="pendingCount">0</span> Pendências
+                </div>
+                <a href="#" id="logoutLink" class="btn btn-sm btn-outline-light">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container-fluid mt-4">
+        <div class="row gy-4 dashboard-cards-container-2x2">
+            <!-- Card de Demandas de RH -->
+            <div class="col-md-6">
+                <div class="card info-card-bootstrap h-100">
+                    <div class="card-header card-header-mogi d-flex justify-content-between align-items-center">
+                        <h2 class="h5 mb-0">Demandas de RH</h2>
+                         <!-- Indicador de pendência de ciência ESPECÍFICO para RH -->
+                         <div id="rhCardPendingScience" class="text-warning" style="font-size: 1rem; display: none;">
+                             <i class="bi bi-exclamation-triangle-fill me-1"></i> <span id="rhCardPendingCount">0</span> Ciências
+                         </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Funcionários de Férias (mês):
+                            <strong id="feriasCount" class="fs-5" data-bs-toggle="tooltip" data-bs-placement="top" title="Carregando..." data-bs-html="true">0</strong>
+                        </p>
+                        <p class="card-text">Funcionários Abonando (próx. 15 dias):
+                            <strong id="abonosCount" class="fs-5" data-bs-toggle="tooltip" data-bs-placement="top" title="Carregando..." data-bs-html="true">0</strong>
+                        </p>
+                    </div>
+                    <div class="card-footer card-footer-mogi text-end">
+                        <a href="rh_details.html" class="btn btn-sm btn-details-mogi">Ver Detalhes RH</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card de Projetos Prioritários (Matriz com Totais) -->
+            <div class="col-md-6">
+                <div class="card info-card-bootstrap h-100">
+                    <div class="card-header card-header-mogi d-flex justify-content-between align-items-center">
+                        <h2 class="h5 mb-0">Projetos Prioritários (Situação x Prioridade)</h2>
+                         <!-- Indicador de pendência de ciência ESPECÍFICO para Projetos -->
+                         <div id="projectCardPendingScience" class="text-warning" style="font-size: 1rem; display: none;">
+                             <i class="bi bi-exclamation-triangle-fill me-1"></i> <span id="projectCardPendingCount">0</span> Ciências
+                         </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm table-bordered text-center project-summary-table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Situação</th>
+                                    <th scope="col">Baixa</th>
+                                    <th scope="col">Média</th>
+                                    <th scope="col">Alta</th>
+                                    <th scope="col" class="col-total">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row" class="text-start">Pendente</th>
+                                    <td id="proj-pendente-baixa" data-bs-toggle="tooltip" data-bs-placement="top" title="Carregando..." data-bs-html="true">0</td>
+                                    <td id="proj-pendente-media" data-bs-toggle="tooltip" data-bs-placement="top" title="Carregando..." data-bs-html="true">0</td>
+                                    <td id="proj-pendente-alta" data-bs-toggle="tooltip" data-bs-placement="top" title="Carregando..." data-bs-html="true">0</td>
+                                    <td id="proj-pendente-total" class="row-total" data-bs-toggle="tooltip" data-bs-placement="top" title="Total Pendentes" data-bs-html="true">0</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-start">Em Andamento</th>
+                                    <td id="proj-andamento-baixa" data-bs-toggle="tooltip" data-bs-placement="top" title="Carregando..." data-bs-html="true">0</td>
+                                    <td id="proj-andamento-media" data-bs-toggle="tooltip" data-bs-placement="top" title="Carregando..." data-bs-html="true">0</td>
+                                    <td id="proj-andamento-alta" data-bs-toggle="tooltip" data-bs-placement="top" title="Carregando..." data-bs-html="true">0</td>
+                                    <td id="proj-andamento-total" class="row-total" data-bs-toggle="tooltip" data-bs-placement="top" title="Total Em Andamento" data-bs-html="true">0</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-start">Concluído</th>
+                                    <td id="proj-concluido-baixa" data-bs-toggle="tooltip" data-bs-placement="top" title="Carregando..." data-bs-html="true">0</td>
+                                    <td id="proj-concluido-media" data-bs-toggle="tooltip" data-bs-placement="top" title="Carregando..." data-bs-html="true">0</td>
+                                    <td id="proj-concluido-alta" data-bs-toggle="tooltip" data-bs-placement="top" title="Carregando..." data-bs-html="true">0</td>
+                                    <td id="proj-concluido-total" class="row-total" data-bs-toggle="tooltip" data-bs-placement="top" title="Total Concluídos" data-bs-html="true">0</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-light">
+                                    <th scope="row" class="text-start">Total</th>
+                                    <td id="proj-total-baixa" data-bs-toggle="tooltip" data-bs-placement="top" title="Total Prioridade Baixa" data-bs-html="true">0</td>
+                                    <td id="proj-total-media" data-bs-toggle="tooltip" data-bs-placement="top" title="Total Prioridade Média" data-bs-html="true">0</td>
+                                    <td id="proj-total-alta" data-bs-toggle="tooltip" data-bs-placement="top" title="Carregando..." data-bs-html="true">0</td>
+                                    <td id="proj-grand-total" data-bs-toggle="tooltip" data-bs-placement="top" title="Total Geral de Projetos" data-bs-html="true">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="card-footer card-footer-mogi text-end">
+                        <a href="projects_details.html" class="btn btn-sm btn-details-mogi">Ver Todos os Projetos</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Demandas do Dia a Dia (Ativas) -->
+            <div class="col-md-6">
+                <div class="card info-card-bootstrap h-100">
+                    <div class="card-header card-header-mogi d-flex justify-content-between align-items-center">
+                        <h2 class="h5 mb-0">Demandas do Dia a Dia (Ativas)</h2>
+                         <!-- Indicador de pendência de ciência ESPECÍFICO para este CARD -->
+                         <div id="daytodayCardPendingScience" class="text-warning" style="font-size: 1rem; display: none;">
+                             <i class="bi bi-exclamation-triangle-fill me-1"></i> <span id="daytodayCardPendingCount">0</span> Ciências
+                         </div>
+                    </div>
+                    <div class="card-body" id="daytodayCardBody">
+                         <!-- Conteúdo populado pelo script -->
+                        <p class="card-text text-muted">Carregando demandas...</p>
+                    </div>
+                    <div class="card-footer card-footer-mogi text-end">
+                        <a href="daytoday_details.html" class="btn btn-sm btn-details-mogi me-2">Ver Detalhes (Ativas)</a>
+                         <a href="completed_demands.html" class="btn btn-sm btn-details-mogi">Ver Concluídas</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Projetos Atribuídos ao Usuário -->
+            <div class="col-md-6">
+                <div class="card info-card-bootstrap h-100">
+                    <div class="card-header card-header-mogi">
+                        <h2 class="h5 mb-0" id="assignedProjectsCardTitle">Projetos Atribuídos a Você</h2>
+                    </div>
+                    <div class="card-body" id="assignedProjectsCardBody">
+                        <!-- Conteúdo populado pelo script -->
+                        <p class="card-text text-muted">Carregando seus projetos...<br><span>Verifique se há projetos atribuídos ao seu Role e se você está logado.</span></p>
+                    </div>
+                    <div class="card-footer card-footer-mogi text-end">
+                        <a href="assigned_projects.html" class="btn btn-sm btn-details-mogi">Ver Meus Projetos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Painel flutuante para lista de pendências de ciência -->
+    <div id="pendingItemsPanel" class="dashboard-pending-panel">
+        <div class="card info-card-bootstrap">
+            <div class="card-header card-header-mogi d-flex justify-content-between align-items-center">
+                <h3 class="h6 mb-0">Itens Aguardando Sua Ciência</h3>
+                <button type="button" class="btn-close btn-close-white" aria-label="Close" id="closePendingPanelBtn"></button>
+            </div>
+            <div class="card-body p-0">
+                 <ul id="pendingItemsList" class="list-group list-group-flush">
+                     <!-- Itens serão carregados aqui pelo JS -->
+                 </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

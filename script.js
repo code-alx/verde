@@ -217,10 +217,7 @@ function checkLoginStatus() {
     const isLoginPage = (relativePath === 'index.html' || (relativePath === '' && currentPage.endsWith('/index.html')) || (relativePath === '' && currentPage === baseHref) );
 
 
-    if (!loggedInUser && !isLoginPage) {
-        alert('Você não está logado. Redirecionando para a página de login.');
-        window.location.replace(baseHref + 'index.html');
-    }
+
 }
 
 
